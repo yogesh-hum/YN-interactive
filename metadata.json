@@ -1,0 +1,7 @@
+{
+  "name": "YN Interactive",
+  "description": "YN Interactive builds professional websites, software solutions, AI automation and digital solutions for businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

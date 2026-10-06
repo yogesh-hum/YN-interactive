@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #07090e;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* 3D Perspective & Preservation */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.perspective-1500 {
+  perspective: 1500px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Subtle glow and utility effects */
+.glow-blue {
+  box-shadow: 0 0 35px -8px rgba(37, 99, 235, 0.25);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 30px -8px rgba(6, 182, 212, 0.25);
+}
+
+.glow-subtle {
+  box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.15);
+}
+
+/* Glass surface utilities with metallic borders */
+.glass-panel {
+  background: rgba(14, 20, 36, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(11, 16, 29, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-card-premium {
+  background: linear-gradient(135deg, rgba(20, 28, 48, 0.7) 0%, rgba(9, 13, 24, 0.8) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(37, 99, 235, 0.15);
+}
+
+/* Subtle background grid pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-dots-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Metallic gradient highlight */
+.metallic-border {
+  border: 1px solid transparent;
+  background: linear-gradient(#0a0e19, #0a0e19) padding-box,
+              linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(37, 99, 235, 0.3), rgba(255, 255, 255, 0.05)) border-box;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #07090e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Smooth ambient float animation */
+@keyframes ambientFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes orbitRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitRotateCounter {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-float-slow {
+  animation: ambientFloat 8s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-orbit {
+  animation: orbitRotate 30s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbitRotateCounter 40s linear infinite;
+}
+
+/* Ambient Drifting Orbs Animations */
+@keyframes orbDrift1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(80px, 60px, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-60px, 100px, 0) scale(0.96);
+  }
+}
+
+@keyframes orbDrift2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-90px, -70px, 0) scale(1.06);
+  }
+}
+
+@keyframes orbDrift3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.10;
+  }
+  50% {
+    transform: translate3d(70px, -80px, 0) scale(1.12);
+    opacity: 0.18;
+  }
+}
+
+.animate-orb-1 {
+  animation: orbDrift1 32s ease-in-out infinite;
+}
+
+.animate-orb-2 {
+  animation: orbDrift2 38s ease-in-out infinite;
+}
+
+.animate-orb-3 {
+  animation: orbDrift3 28s ease-in-out infinite;
+}
+
+/* Subtle Animated Technical Grid */
+@keyframes technicalGridDrift {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+.animate-grid-drift {
+  animation: technicalGridDrift 45s linear infinite;
+}
+
+/* Subtle Floating Particle Motion */
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate3d(14px, -22px, 0);
+    opacity: 0.45;
+  }
+}
+
+/* Cinematic entrance stagger classes */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter-1 {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.hero-enter-2 {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+.hero-enter-3 {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+.hero-enter-4 {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+.hero-enter-5 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-float-slow,
+  .animate-glow-pulse,
+  .animate-orbit,
+  .animate-orbit-reverse,
+  .animate-orb-1,
+  .animate-orb-2,
+  .animate-orb-3,
+  .animate-grid-drift {
+    animation: none !important;
+  }
+}
