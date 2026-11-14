@@ -69,7 +69,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
     }
   };
 
-  const transformStyle = isFinePointer.current
+  const transformStyle = isFinePointer
     ? {
         transform: `translate3d(${offset.x}px, ${offset.y}px, 0) scale(${isHovered ? 1.02 : 1})`,
         transition: isHovered
