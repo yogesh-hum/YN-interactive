@@ -15,7 +15,7 @@ const TiltProjectCard: React.FC<{
   const [isFinePointer, setIsFinePointer] = useState(false);
 
   useEffect(() => {
-    setIsFinePointer(window.matchMedia('(pointer: fine)').matches);
+    setIsFinePointer(window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
