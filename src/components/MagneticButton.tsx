@@ -22,14 +22,14 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   const buttonRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const isFinePointer = useRef(false);
+  const [isFinePointer, setIsFinePointer] = useState(false);
 
   useEffect(() => {
-    isFinePointer.current = window.matchMedia('(pointer: fine)').matches;
+    setIsFinePointer(window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isFinePointer.current || !buttonRef.current) return;
+    if (!isFinePointer || !buttonRef.current) return;
     const rect = buttonRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
