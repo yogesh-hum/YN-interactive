@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, MessageSquare, Mail, Calculator, Check, ArrowRight } from 'lucide-react';
 import { TARGET_INDUSTRIES, BRAND, getWhatsAppUrl, getEmailUrl } from '../data/content.ts';
 
@@ -13,13 +13,36 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   onClose,
   defaultTier,
 }) => {
-  if (!isOpen) return null;
-
   const [industry, setIndustry] = useState('Restaurants & Cafes');
   const [selectedPlan, setSelectedPlan] = useState(defaultTier || 'Business Website (Starting at ₹5,999)');
   const [timeline, setTimeline] = useState('Within 7 Days');
   const [businessName, setBusinessName] = useState('');
   const [specialNotes, setSpecialNotes] = useState('');
+
+  useEffect(() => {
+    if (isOpen && defaultTier) {
+      setSelectedPlan(defaultTier);
+    }
+  }, [defaultTier, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
 
   const plans = [
     { name: 'Starter Website (Starting at ₹2,999)', desc: '1–3 Pages, Responsive, WhatsApp CTA' },
@@ -45,13 +68,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative w-full max-w-xl bg-[#090d18] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+    <div role="presentation"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" className="relative w-full max-w-xl bg-[#090d18] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-[#070a13]">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <h3 className="font-display font-bold text-lg text-white">
+            <h3 id="quote-modal-title" className="font-display font-bold text-lg text-white">
               Get a Free Quote
             </h3>
           </div>
@@ -112,7 +136,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               </span>
               <div className="space-y-2">
                 {plans.map((p) => {
-                  const isSelected = selectedPlan.includes(p.name.split(' ')[0]);
+                  const isSelected = selectedPlan.toLowerCase().includes(p.name.split(' ')[0].toLowerCase());
                   return (
                     <button
                       key={p.name}

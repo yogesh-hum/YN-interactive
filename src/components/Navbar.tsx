@@ -74,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           </nav>
 
           {/* Action Zone: WhatsApp quick link and Magnetic CTA */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href={getWhatsAppUrl("Hi YN Interactive, I'd like to ask a quick question about your digital solutions.")}
               target="_blank"
@@ -99,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           </div>
 
           {/* Mobile Hamburger Toggle */}
-          <div className="flex sm:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               type="button"
               onClick={onOpenQuoteModal}
@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="sm:hidden bg-[#0a0e19] border-b border-white/10 px-4 pt-3 pb-6 space-y-3 animate-fadeIn">
+          <div className="lg:hidden bg-[#0a0e19] border-b border-white/10 px-4 pt-3 pb-6 space-y-3 animate-fadeIn">
             <div className="flex flex-col space-y-2">
               {navLinks.map((item) => (
                 <button

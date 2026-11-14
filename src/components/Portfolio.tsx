@@ -12,14 +12,14 @@ const TiltProjectCard: React.FC<{
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const isFinePointer = useRef(false);
+  const [isFinePointer, setIsFinePointer] = useState(false);
 
   useEffect(() => {
-    isFinePointer.current = window.matchMedia('(pointer: fine)').matches;
+    setIsFinePointer(window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isFinePointer.current || !cardRef.current) return;
+    if (!isFinePointer || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
