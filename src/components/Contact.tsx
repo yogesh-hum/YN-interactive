@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MessageSquare,
   Mail,
@@ -21,6 +21,10 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
   const [message, setMessage] = useState('');
   const [contactMethod, setContactMethod] = useState<'whatsapp' | 'email'>('whatsapp');
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (initialService) setService(initialService);
+  }, [initialService]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
