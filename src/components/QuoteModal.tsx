@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, MessageSquare, Mail, Calculator, Check, ArrowRight } from 'lucide-react';
 import { TARGET_INDUSTRIES, BRAND, getWhatsAppUrl, getEmailUrl } from '../data/content.ts';
 
@@ -13,13 +13,19 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   onClose,
   defaultTier,
 }) => {
-  if (!isOpen) return null;
-
   const [industry, setIndustry] = useState('Restaurants & Cafes');
   const [selectedPlan, setSelectedPlan] = useState(defaultTier || 'Business Website (Starting at ₹5,999)');
   const [timeline, setTimeline] = useState('Within 7 Days');
   const [businessName, setBusinessName] = useState('');
   const [specialNotes, setSpecialNotes] = useState('');
+
+  useEffect(() => {
+    if (isOpen && defaultTier) {
+      setSelectedPlan(defaultTier);
+    }
+  }, [defaultTier, isOpen]);
+
+  if (!isOpen) return null;
 
   const plans = [
     { name: 'Starter Website (Starting at ₹2,999)', desc: '1–3 Pages, Responsive, WhatsApp CTA' },
@@ -112,7 +118,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               </span>
               <div className="space-y-2">
                 {plans.map((p) => {
-                  const isSelected = selectedPlan.includes(p.name.split(' ')[0]);
+                  const isSelected = selectedPlan.toLowerCase().includes(p.name.split(' ')[0].toLowerCase());
                   return (
                     <button
                       key={p.name}
