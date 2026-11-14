@@ -44,7 +44,7 @@ const TiltProjectCard: React.FC<{
       onMouseLeave={handleMouseLeave}
       className="group relative rounded-2xl bg-[#090d18] border border-white/[0.08] hover:border-cyan-500/40 overflow-hidden flex flex-col justify-between transition-all duration-300 preserve-3d"
       style={{
-        transform: isFinePointer.current
+        transform: isFinePointer
           ? `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateZ(${isHovered ? '10px' : '0px'})`
           : undefined,
         boxShadow: isHovered
