@@ -169,7 +169,6 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                       aria-invalid={Boolean(errors.businessName)}
                       aria-describedby={errors.businessName ? 'contact-business-name-error' : undefined}
                       className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors"
-                      required
                     />
                     {errors.businessName && <p id="contact-business-name-error" className="mt-1.5 text-xs text-rose-400" role="alert">{errors.businessName}</p>}
                   </div>
