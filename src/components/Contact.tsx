@@ -151,7 +151,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="contact-business-name" className="block text-xs font-medium text-slate-300 mb-1.5">
@@ -168,7 +168,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                       required
                       aria-invalid={Boolean(errors.businessName)}
                       aria-describedby={errors.businessName ? 'contact-business-name-error' : undefined}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors"
+                      className={`w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border ${errors.businessName ? 'border-rose-500' : 'border-white/10'} text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors`}
                     />
                     {errors.businessName && <p id="contact-business-name-error" className="mt-1.5 text-xs text-rose-400" role="alert">{errors.businessName}</p>}
                   </div>
@@ -188,7 +188,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                       required
                       aria-invalid={Boolean(errors.businessType)}
                       aria-describedby={errors.businessType ? 'contact-business-type-error' : undefined}
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors"
+                      className={`w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border ${errors.businessType ? 'border-rose-500' : 'border-white/10'} text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors`}
                     />
                     {errors.businessType && <p id="contact-business-type-error" className="mt-1.5 text-xs text-rose-400" role="alert">{errors.businessType}</p>}
                   </div>
@@ -228,7 +228,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                     required
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? 'contact-message-error' : undefined}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors resize-none"
+                    className={`w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border ${errors.message ? 'border-rose-500' : 'border-white/10'} text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors resize-none`}
                   />
                   <div className="mt-1 flex items-center justify-between gap-3">
                     {errors.message ? <p id="contact-message-error" className="text-xs text-rose-400" role="alert">{errors.message}</p> : <p className="text-[11px] text-slate-500">Please include at least 20 characters.</p>}
