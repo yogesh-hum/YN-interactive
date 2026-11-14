@@ -66,7 +66,7 @@ const TiltServiceCard: React.FC<{
       onMouseLeave={handleMouseLeave}
       className="group relative flex flex-col justify-between p-7 rounded-2xl bg-[#090d18]/90 border border-white/[0.08] hover:border-blue-500/50 transition-all duration-300 preserve-3d overflow-hidden"
       style={{
-        transform: isFinePointer.current
+        transform: isFinePointer
           ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateZ(${isHovered ? '8px' : '0px'})`
           : undefined,
         boxShadow: isHovered
@@ -75,7 +75,7 @@ const TiltServiceCard: React.FC<{
       }}
     >
       {/* Subtle localized radial glow tracking mouse inside card */}
-      {isHovered && isFinePointer.current && (
+      {isHovered && isFinePointer && (
         <div
           className="absolute pointer-events-none rounded-full blur-2xl transition-opacity duration-200"
           style={{
