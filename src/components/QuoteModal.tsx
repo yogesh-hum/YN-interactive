@@ -68,7 +68,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   };
 
   return (
-    <div role="presentation"\n      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+    <div role="presentation"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
       <div role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" className="relative w-full max-w-xl bg-[#090d18] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-[#070a13]">
