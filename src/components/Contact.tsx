@@ -21,6 +21,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
   const [message, setMessage] = useState('');
   const [contactMethod, setContactMethod] = useState<'whatsapp' | 'email'>('whatsapp');
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<{ businessName?: string; businessType?: string; message?: string }>({});
 
   useEffect(() => {
     if (initialService) setService(initialService);
@@ -28,7 +29,23 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formattedText = `Hi YN Interactive, I would like to start a project.\n\nBusiness Name: ${businessName || 'Not specified'}\nBusiness Type: ${businessType || 'Not specified'}\nInterested Solution: ${service}\nNotes/Requirements: ${message || 'Please contact me to discuss details.'}`;
+    const cleanName = businessName.trim();
+    const cleanType = businessType.trim();
+    const cleanMessage = message.trim();
+    const nextErrors: { businessName?: string; businessType?: string; message?: string } = {};
+
+    if (cleanName.length < 2) nextErrors.businessName = 'Enter a business or brand name (at least 2 characters).';
+    if (cleanName.length > 80) nextErrors.businessName = 'Keep the business name under 80 characters.';
+    if (cleanType.length < 2) nextErrors.businessType = 'Enter your business category (at least 2 characters).';
+    if (cleanType.length > 60) nextErrors.businessType = 'Keep the category under 60 characters.';
+    if (cleanMessage.length < 20) nextErrors.message = 'Add at least 20 characters so we understand what you need.';
+    if (cleanMessage.length > 1000) nextErrors.message = 'Keep project details under 1,000 characters.';
+
+    setErrors(nextErrors);
+    setSubmitted(false);
+    if (Object.keys(nextErrors).length > 0) return;
+
+    const formattedText = `Hi YN Interactive, I would like to start a project.\n\nBusiness Name: ${cleanName}\nBusiness Type: ${cleanType}\nInterested Solution: ${service}\nNotes/Requirements: ${cleanMessage}`;
 
     if (contactMethod === 'whatsapp') {
       window.open(getWhatsAppUrl(formattedText), '_blank');
@@ -145,10 +162,16 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                       type="text"
                       placeholder="e.g. Apex Cafe, Urban Salon"
                       value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
+                      onChange={(e) => { setBusinessName(e.target.value); setErrors((prev) => ({ ...prev, businessName: undefined })); setSubmitted(false); }}
+                      minLength={2}
+                      maxLength={80}
+                      required
+                      aria-invalid={Boolean(errors.businessName)}
+                      aria-describedby={errors.businessName ? 'contact-business-name-error' : undefined}
                       className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors"
                       required
                     />
+                    {errors.businessName && <p id="contact-business-name-error" className="mt-1.5 text-xs text-rose-400" role="alert">{errors.businessName}</p>}
                   </div>
 
                   <div>
@@ -160,9 +183,15 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                       type="text"
                       placeholder="e.g. Restaurant, Gym, Clinic, Store"
                       value={businessType}
-                      onChange={(e) => setBusinessType(e.target.value)}
+                      onChange={(e) => { setBusinessType(e.target.value); setErrors((prev) => ({ ...prev, businessType: undefined })); setSubmitted(false); }}
+                      minLength={2}
+                      maxLength={60}
+                      required
+                      aria-invalid={Boolean(errors.businessType)}
+                      aria-describedby={errors.businessType ? 'contact-business-type-error' : undefined}
                       className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors"
                     />
+                    {errors.businessType && <p id="contact-business-type-error" className="mt-1.5 text-xs text-rose-400" role="alert">{errors.businessType}</p>}
                   </div>
                 </div>
 
@@ -194,9 +223,18 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                     rows={3}
                     placeholder="Briefly describe what you'd like your website or system to do..."
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => { setMessage(e.target.value); setErrors((prev) => ({ ...prev, message: undefined })); setSubmitted(false); }}
+                    minLength={20}
+                    maxLength={1000}
+                    required
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
                     className="w-full px-3.5 py-2.5 rounded-lg bg-[#07090e] border border-white/10 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500 transition-colors resize-none"
                   />
+                  <div className="mt-1 flex items-center justify-between gap-3">
+                    {errors.message ? <p id="contact-message-error" className="text-xs text-rose-400" role="alert">{errors.message}</p> : <p className="text-[11px] text-slate-500">Please include at least 20 characters.</p>}
+                    <span className="text-[11px] text-slate-500 tabular-nums">{message.length}/1000</span>
+                  </div>
                 </div>
 
                 {/* Send via Choice */}
